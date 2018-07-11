@@ -2,6 +2,7 @@
 
 Tiny `HTMLSelectElement#selectedOptions` shim for IE.
 
+* [Can I use `selectedOptions`?](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedOptions#Browser_compatibility)
 * [WHATWG: HTML spec](https://html.spec.whatwg.org/multipage/form-elements.html#dom-select-selectedoptions)
 * [More conformant shim with IE8 support](https://gist.github.com/brettz9/4212217)
 
@@ -32,14 +33,14 @@ it requires observing DOM subtrees to implement [quirks of `HTMLCollection`](htt
 not to mention emulating live collection. For most cases, this solution is fine.
 
 * New object instead of [always the same](https://heycam.github.io/webidl/#SameObject)
-* `NodeList` instead of `HTMLCollection`
+* `NodeList` instead of `HTMLCollection` instance
 * Static collection instead of live
 
 See more on collections in [WHATWG DOM spec](https://dom.spec.whatwg.org/#old-style-collections).
 
 ## Examples
 
-Straightforward for single value selects:
+Straightforward for single-value selects:
 
 ```diff
 - let {text} = select.options[select.selectedIndex]
@@ -49,6 +50,6 @@ Straightforward for single value selects:
 Precise typing for `multiple` selects:
 
 ```diff
-- let opts = select.querySelectorAll(":checked")
-+ let opts = select.selectedOptions
+- let opts = select.querySelectorAll(":checked") // NodeList<Element>
++ let opts = select.selectedOptions // HTMLCollection<HTMLSelectElement>
 ```
